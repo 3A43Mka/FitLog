@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "jwtSecret": "bananza",
+    "mongoURI": "mongodb+srv://admin:111223@cluster0.dq2du.mongodb.net/app?retryWrites=true&w=majority"
+}
