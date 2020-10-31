@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
+import { UserCard } from '../components/UserCard';
+import { Loader } from '../components/Loader';
+import { AuthContext } from '../context/AuthContext';
+import { useHttp } from '../hooks/http.hook';
 
 export const ProfilePage = () => {
+    const { token } = useContext(AuthContext);
+    const { request, loading } = useHttp();
+    const [user, setUser] = useState(null);
+
+    const getUser = useCallback(async () => {
+        try {
+
+            const fetched = await request(`/api/users/me`, 'GET', null, {
+                Authorization: `Bearer ${token}`
+            });
+            console.log(fetched);
+            setUser(fetched);
+        } catch (e) {
+
+        }
+    }, [token, request]);
+
+    useEffect(() => {
+        getUser();
+    }, [getUser]);
+
+    if (loading) {
+        return <Loader />;
+    }
+
     return (
-        <div>
-            <h1>
-                Profile Page
-            </h1>
-        </div>
+        <>
+            {!loading && user && <UserCard user={user} />}
+        </>
     )
 }

@@ -6,7 +6,7 @@ const schema = new Schema({
     role: {type: String, required: true},
     fullname: {type: String, required: true},
     registered: {type: Date, required: true},
-    clients: [{type: Types.ObjectId, ref: 'User'}]
-});
+},
+{versionKey : false});
 
 module.exports = model('User', schema);

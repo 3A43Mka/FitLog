@@ -3,7 +3,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import 'react-bootstrap';
 import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
-import {AuthContext} from './context/auth.context';
+import {AuthContext} from './context/AuthContext';
 import { NavbarComponent } from './components/Navbar';
 import { Loader } from './components/Loader';
 

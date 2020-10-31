@@ -2,7 +2,7 @@ import {React, useContext, useEffect, useState} from 'react';
 import { Row, Col, Card, Button, InputGroup, FormControl} from 'react-bootstrap';
 import {useHttp} from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
-import {AuthContext} from '../context/auth.context';
+import {AuthContext} from '../context/AuthContext';
 export const AuthPage = () => {
     const auth = useContext(AuthContext);
     const message = useMessage();
