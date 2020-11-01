@@ -22,6 +22,7 @@ export const NavbarComponent = () => {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
+                    <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
                     <Nav.Link as={NavLink} onClick={logoutHandler} to="/">Logout</Nav.Link>
                     
                 </Nav>
