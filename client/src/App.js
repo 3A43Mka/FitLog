@@ -6,6 +6,7 @@ import { useAuth } from './hooks/auth.hook';
 import {AuthContext} from './context/AuthContext';
 import { NavbarComponent } from './components/Navbar';
 import { Loader } from './components/Loader';
+import { Container } from 'react-bootstrap';
 
 function App() {
   const {token, login, logout, userId, ready} = useAuth();
@@ -21,9 +22,9 @@ function App() {
     }}>
     <Router>
       {isAuthenticated && <NavbarComponent/>}
-    <div className="container">
+    <Container>
       {routes}
-    </div>
+    </Container>
     </Router>
     </AuthContext.Provider>
   );

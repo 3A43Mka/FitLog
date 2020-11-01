@@ -18,7 +18,6 @@ const router = Router();
 
     router.get('/all', auth, async (req, res) => {
         try {
-            console.log(req.user.userId);
             let user = await User.findOne({_id: req.user.userId});
             console.log(user);
             if (user.role !== 'admin' && user.role !=='trainer') {
@@ -26,6 +25,31 @@ const router = Router();
             }
             let users = await User.find().select("-password");
             res.json(users);
+        } catch (e) {
+            res.status(500).json({ message: 'Something went wrong, try again' });
+        }
+    });
+
+    router.post('/bySearch', auth, async (req, res) => {
+        try {
+            let user = await User.findOne({_id: req.user.userId});
+            console.log(user);
+            if (user.role !== 'admin' && user.role !=='trainer') {
+                return res.status(401).json({ message: `Unauthorized for this action: role ${user.role}` });
+            }
+            const search = req.body.search;
+            console.log(search);
+            let users = await User.find({ fullname: { "$regex": search, "$options": "i" } }).select("-password");
+            res.json(users);
+        } catch (e) {
+            res.status(500).json({ message: 'Something went wrong, try again' });
+        }
+    });
+
+    router.get('/:id', async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            res.json(user);
         } catch (e) {
             res.status(500).json({ message: 'Something went wrong, try again' });
         }

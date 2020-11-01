@@ -47,6 +47,7 @@ export const AuthPage = () => {
                                     placeholder="Email"
                                     id="email"
                                     name="email"
+                                    type="email"
                                     onChange={changeHandler}
                                 />
                             </InputGroup>
@@ -56,6 +57,7 @@ export const AuthPage = () => {
                                     placeholder="Fullname"
                                     id="fullname"
                                     name="fullname"
+                                    type="text"
                                     onChange={changeHandler}
                                 />
                             </InputGroup>
@@ -65,6 +67,7 @@ export const AuthPage = () => {
                                     placeholder="Password"
                                     id="password"
                                     name="password"
+                                    type="password"
                                     onChange={changeHandler}
                                 />
                             </InputGroup>
