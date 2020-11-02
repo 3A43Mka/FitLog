@@ -13,7 +13,7 @@ export const NavbarComponent = () => {
         history.push('/');
     }
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ paddingLeft: 30, paddingRight: 30 }}>
+        <Navbar collapseOnSelect expand="lg" bg="success" variant="dark" style={{ paddingLeft: 30, paddingRight: 30 }}>
             <Navbar.Brand as={NavLink} to="/">FitLog</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">

@@ -16,7 +16,6 @@ export const ClientDetailPage = () => {
             const fetched = await request(`/api/users/${clientId}`, 'GET', null, {
                 Authorization: `Bearer ${token}`
             });
-            console.log(fetched);
             setClient(fetched);
         } catch (e) {
 

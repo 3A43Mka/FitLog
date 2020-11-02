@@ -1,28 +1,42 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Link, useHistory } from 'react-router-dom';
 import {Table} from 'react-bootstrap';
 export const UsersList = ({ users }) => {
-  if (!users.length) {
-    return <h2 className="center">No users found</h2>
+
+  const history = useHistory();
+const [userId, setUserId] = useState(null);
+
+  const clickHandle = (id) => {
+    setUserId(id);
   }
-  return (
+
+  useEffect(() => {
+    if (userId){
+      history.push(`/client/${userId}`);
+    }
+}, [userId, history]);
+
+
+
+  if (!users.length) {
+    return <h2 className="text-center mt-3">No users found</h2>
+  }
+    return (
 <Table className="mt-3" striped bordered hover>
   <thead>
     <tr>
       <th>#</th>
       <th>Fullname</th>
       <th>Email</th>
-      <th>Username</th>
     </tr>
   </thead>
   <tbody>
       {users.map((user, index) => {
           return (
-            <tr key={user._id}>
+            <tr onClick={() => clickHandle(user._id)} key={user._id}>
               <td>{index + 1}</td>
           <td>{user.fullname}</td>
           <td>{user.email}</td>
-          <td><Link to={`/client/${user._id}`} >Открыть</Link></td>
             </tr>
           )
         })}

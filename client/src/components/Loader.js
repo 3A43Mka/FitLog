@@ -3,6 +3,6 @@ import {Spinner} from 'react-bootstrap';
 
 export const Loader = () => (
 <div>
-<Spinner animation="grow" />
+<Spinner animation="grow" variant="success"/>
 </div>
 );

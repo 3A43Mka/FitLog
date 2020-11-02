@@ -19,7 +19,6 @@ const router = Router();
     router.get('/all', auth, async (req, res) => {
         try {
             let user = await User.findOne({_id: req.user.userId});
-            console.log(user);
             if (user.role !== 'admin' && user.role !=='trainer') {
                 return res.status(401).json({ message: `Unauthorized for this action: role ${user.role}` });
             }
@@ -33,12 +32,10 @@ const router = Router();
     router.post('/bySearch', auth, async (req, res) => {
         try {
             let user = await User.findOne({_id: req.user.userId});
-            console.log(user);
             if (user.role !== 'admin' && user.role !=='trainer') {
                 return res.status(401).json({ message: `Unauthorized for this action: role ${user.role}` });
             }
             const search = req.body.search;
-            console.log(search);
             let users = await User.find({ fullname: { "$regex": search, "$options": "i" } }).select("-password");
             res.json(users);
         } catch (e) {

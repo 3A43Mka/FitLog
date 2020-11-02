@@ -19,7 +19,6 @@ export const UsersPage = () => {
                 Authorization: `Bearer ${token}`
             });
             setUsers(fetched);
-            console.log(fetched);
         } catch (e) {
         }
     }, [request, token]);
