@@ -1,8 +1,10 @@
 import React from 'react';
-import {Spinner} from 'react-bootstrap';
+import { Row, Spinner, Col } from 'react-bootstrap';
 
 export const Loader = () => (
-<div>
-<Spinner animation="grow" variant="success"/>
-</div>
+    <Row className="mt-3">
+        <Col align='center'>
+            <Spinner animation="grow" variant="success" />
+        </Col>
+    </Row>
 );

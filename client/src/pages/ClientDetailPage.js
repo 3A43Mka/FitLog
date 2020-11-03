@@ -12,6 +12,9 @@ export const ClientDetailPage = () => {
     const [program, setProgram] = useState('');
     const [newProgramText, setNewProgramText] = useState('');
     const [doEditProgram, setDoEditProgram] = useState(false);
+    const [notifications, setNotifications] = useState([]);
+    const [newNotificationText, setNewNotificationText] = useState('');
+    const [doAddNotification, setDoAddNotification] = useState(false);
     const clientId = useParams().id;
 
     const getClient = useCallback(async () => {
@@ -39,6 +42,19 @@ export const ClientDetailPage = () => {
         }
     }, [token, request, clientId]);
 
+    const getNotifications = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/logs/getnotifications`, 'POST', {client: clientId}, {
+                Authorization: `Bearer ${token}`
+            });
+            if (fetched){
+                setNotifications(fetched);
+            }
+        } catch (e) {
+
+        }
+    }, [token, request, clientId]);
+
     const addProgram = useCallback(async () => {
         try {
             const fetched = await request(`/api/logs/createprogram`, 'POST', {client: clientId, comment: newProgramText }, {
@@ -52,19 +68,51 @@ export const ClientDetailPage = () => {
         }
     }, [token, request, clientId, getClient, getProgram, newProgramText]);
 
+
+    const addNotification = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/logs/sendnotification`, 'POST', {client: clientId, comment: newNotificationText }, {
+                Authorization: `Bearer ${token}`
+            });
+            setDoAddNotification(false);
+            setNewNotificationText('');
+            getClient();
+            getProgram();
+            getNotifications();
+        } catch (e) {
+            
+        }
+    }, [token, request, clientId, getClient, getProgram, newNotificationText, getNotifications]);
+
     const changeNewProgramTextHandler = event => {
         setNewProgramText(event.target.value);
     }
-
 
     const startEditHandler = () => {
         setDoEditProgram(true);
     }
 
+    const endEditHandler = () => {
+        setDoEditProgram(false);
+    }
+
+    const startNotificationHandler = () => {
+        setDoAddNotification(true);
+    }
+
+    const endNotificationHandler = () => {
+        setDoAddNotification(false);
+    }
+
+    const changeNewNotificationTextHandler = event => {
+        setNewNotificationText(event.target.value);
+    }
+
     useEffect(() => {
         getClient();
         getProgram();
-    }, [getClient, getProgram]);
+        getNotifications();
+    }, [getClient, getProgram, getNotifications]);
 
     if (loading) {
         return <Loader />;
@@ -79,6 +127,15 @@ export const ClientDetailPage = () => {
             changeNewProgramTextHandler={changeNewProgramTextHandler}
             newProgramText={newProgramText}
             startEditHandler={startEditHandler}
+            endEditHandler={endEditHandler}
+
+            startNotificationHandler={startNotificationHandler}
+            endNotificationHandler={endNotificationHandler}
+            doAddNotification={doAddNotification}
+            notifications={notifications}
+            newNotificationText={newNotificationText}
+            changeNewNotificationTextHandler={changeNewNotificationTextHandler}
+            addNotification={addNotification}
             />}
         </>
     )

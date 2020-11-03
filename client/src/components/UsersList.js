@@ -28,6 +28,7 @@ const [userId, setUserId] = useState(null);
       <th>#</th>
       <th>Fullname</th>
       <th>Email</th>
+      <th>Role</th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,7 @@ const [userId, setUserId] = useState(null);
               <td>{index + 1}</td>
           <td>{user.fullname}</td>
           <td>{user.email}</td>
+          <td>{user.role}</td>
             </tr>
           )
         })}
