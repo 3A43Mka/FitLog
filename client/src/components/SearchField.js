@@ -1,4 +1,4 @@
-import { React, useContext } from 'react';
+import { React } from 'react';
 import {InputGroup, FormControl, Col, Row, Button} from 'react-bootstrap';
 
 export const SearchField = ({changeHandler, search, searchHandler, enterHandler}) => {
