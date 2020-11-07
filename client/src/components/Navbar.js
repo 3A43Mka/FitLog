@@ -6,6 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 export const NavbarComponent = () => {
     const history = useHistory();
     const auth = useContext(AuthContext);
+    const { userRole, userId } = useContext(AuthContext);
 
     const logoutHandler = event => {
         event.preventDefault();
@@ -21,6 +22,9 @@ export const NavbarComponent = () => {
                     <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
                     <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
                     <Nav.Link as={NavLink} onClick={logoutHandler} to="/">Logout</Nav.Link>
+                    {userRole == 'trainer' && (
+                        <p>congratz you are trainer</p>
+                    )}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

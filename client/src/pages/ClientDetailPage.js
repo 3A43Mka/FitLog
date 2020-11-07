@@ -15,6 +15,7 @@ export const ClientDetailPage = () => {
     const [notifications, setNotifications] = useState([]);
     const [newNotificationText, setNewNotificationText] = useState('');
     const [doAddNotification, setDoAddNotification] = useState(false);
+    const [lastVisit, setLastVisit] = useState(null);
     const clientId = useParams().id;
 
     const getClient = useCallback(async () => {
@@ -49,6 +50,19 @@ export const ClientDetailPage = () => {
             });
             if (fetched){
                 setNotifications(fetched);
+            }
+        } catch (e) {
+
+        }
+    }, [token, request, clientId]);
+
+    const getLastVisit = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/logs/getlastvisit`, 'POST', {client: clientId}, {
+                Authorization: `Bearer ${token}`
+            });
+            if (fetched){
+                setLastVisit(fetched.date);
             }
         } catch (e) {
 
@@ -112,7 +126,8 @@ export const ClientDetailPage = () => {
         getClient();
         getProgram();
         getNotifications();
-    }, [getClient, getProgram, getNotifications]);
+        getLastVisit();
+    }, [getClient, getProgram, getNotifications, getLastVisit]);
 
     if (loading) {
         return <Loader />;
@@ -136,6 +151,8 @@ export const ClientDetailPage = () => {
             newNotificationText={newNotificationText}
             changeNewNotificationTextHandler={changeNewNotificationTextHandler}
             addNotification={addNotification}
+
+            lastVisit={lastVisit}
             />}
         </>
     )

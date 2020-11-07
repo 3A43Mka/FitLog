@@ -6,7 +6,8 @@ export const ClientCard = ({ client, program, doEditProgram,
     addProgram, changeNewProgramTextHandler, newProgramText,
     startEditHandler, endEditHandler, startNotificationHandler,
     notifications, newNotificationText, addNotification, doAddNotification,
-    changeNewNotificationTextHandler, endNotificationHandler }) => {
+    changeNewNotificationTextHandler, endNotificationHandler, lastVisit, 
+    sendVisitNotification }) => {
 
     const NotificationsList = () => {
         return (
@@ -14,7 +15,7 @@ export const ClientCard = ({ client, program, doEditProgram,
                 return (
                     <div key={notification._id}>
                         <p><strong>{notification.comment}</strong></p>
-                        <p className="ml-3">{new Date(notification.date).toLocaleDateString()}</p>
+                        <p className="ml-3">{new Date(notification.date).toLocaleString()}</p>
                     </div>
                 )
             })
@@ -35,6 +36,16 @@ export const ClientCard = ({ client, program, doEditProgram,
             <Row className="mt-3">
                 <Col>
                     <h2 className="text-center">Some graphs here...</h2>
+                </Col>
+            </Row>
+            <Row className="mt-3">
+                <Col>
+                <h2>Last visit</h2>
+                </Col>
+                <Col>
+                    {!lastVisit && (
+                        <h2>No visits</h2>
+                    )}
                 </Col>
             </Row>
             <Row>

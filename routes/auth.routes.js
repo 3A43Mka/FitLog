@@ -58,10 +58,10 @@ router.post('/login',
             const token = jwt.sign(
                 { userId: user.id },
                 config.get('jwtSecret'),
-                {expiresIn: '1h'}
+                {expiresIn: '2h'}
             )
             
-            res.json({token, userId: user.id});
+            res.json({token, userId: user.id, userRole: user.role});
         } catch (e) {
             res.status(500).json({ message: 'Something went wrong, try again' });
         }
