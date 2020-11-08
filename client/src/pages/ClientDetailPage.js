@@ -6,9 +6,11 @@ import { AuthContext } from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
 
 export const ClientDetailPage = () => {
-    const { token } = useContext(AuthContext);
+    const { token, userId } = useContext(AuthContext);
     const { request, loading } = useHttp();
     const [client, setClient] = useState(null);
+    const [trainer, setTrainer] = useState(null);
+    const [isMyClient, setIsMyClient] = useState(false);
     const [program, setProgram] = useState('');
     const [newProgramText, setNewProgramText] = useState('');
     const [doEditProgram, setDoEditProgram] = useState(false);
@@ -16,6 +18,8 @@ export const ClientDetailPage = () => {
     const [newNotificationText, setNewNotificationText] = useState('');
     const [doAddNotification, setDoAddNotification] = useState(false);
     const [lastVisit, setLastVisit] = useState(null);
+    const [templates, setTemplates] = useState([]);
+    const [selectedTemplate, setSelectedTemplate] = useState(null);
     const clientId = useParams().id;
 
     const getClient = useCallback(async () => {
@@ -43,6 +47,35 @@ export const ClientDetailPage = () => {
         }
     }, [token, request, clientId]);
 
+    const getTrainer = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/links/gettrainer`, 'POST', {client: clientId}, {
+                Authorization: `Bearer ${token}`
+            });
+            if (fetched){
+                setTrainer(fetched);
+                if (fetched._id === userId) {
+                    setIsMyClient(true);
+                }
+            }
+        } catch (e) {
+
+        }
+    }, [token, request, clientId, userId]);
+
+    const addTrainer = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/links/addtrainer`, 'POST', {client: clientId, trainer: userId}, {
+                Authorization: `Bearer ${token}`
+            });
+            if (fetched){
+                getTrainer();
+            }
+        } catch (e) {
+
+        }
+    }, [token, request, clientId, userId, getTrainer]);
+
     const getNotifications = useCallback(async () => {
         try {
             const fetched = await request(`/api/logs/getnotifications`, 'POST', {client: clientId}, {
@@ -68,6 +101,19 @@ export const ClientDetailPage = () => {
 
         }
     }, [token, request, clientId]);
+
+    const getTemplates = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/templates`, 'GET', null, {
+                Authorization: `Bearer ${token}`
+            });
+            if (fetched){
+                setTemplates(fetched);
+            }
+        } catch (e) {
+
+        }
+    }, [token, request, setTemplates]);
 
     const addProgram = useCallback(async () => {
         try {
@@ -102,6 +148,15 @@ export const ClientDetailPage = () => {
         setNewProgramText(event.target.value);
     }
 
+    const selectTemplateHandler = event => {
+        setSelectedTemplate(event.target.value);
+    }
+
+    const insertTemplate = event => {
+        const newText = newProgramText + "\n" + templates[selectedTemplate].text;
+        setNewProgramText(newText);
+    }
+
     const startEditHandler = () => {
         setDoEditProgram(true);
     }
@@ -127,7 +182,9 @@ export const ClientDetailPage = () => {
         getProgram();
         getNotifications();
         getLastVisit();
-    }, [getClient, getProgram, getNotifications, getLastVisit]);
+        getTrainer();
+        getTemplates();
+    }, [getClient, getProgram, getNotifications, getLastVisit, getTrainer, getTemplates]);
 
     if (loading) {
         return <Loader />;
@@ -153,6 +210,13 @@ export const ClientDetailPage = () => {
             addNotification={addNotification}
 
             lastVisit={lastVisit}
+            trainer={trainer}
+            addTrainer={addTrainer}
+            isMyClient={isMyClient}
+            
+            templates={templates}
+            selectTemplateHandler={selectTemplateHandler}
+            insertTemplate={insertTemplate}
             />}
         </>
     )

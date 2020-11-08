@@ -65,7 +65,7 @@ const router = Router();
             if (!req.body.client) {
                 return res.status(400).json({ message: 'Invalid data' });
             }
-            const notifications = await Log.find({client: req.body.client, eventType: 3}).sort({ date: -1 });
+            const notifications = await Log.find({client: req.body.client, eventType: 3}).sort({ date: -1 }).populate("trainer", '-password');
             if (!notifications) {
                 return res.status(400).json({ message: 'No notifications found' });
             }
@@ -85,7 +85,7 @@ const router = Router();
             }
 
             console.log(req.body.client);
-            const log = new Log({trainer: user._id, client: req.body.client, eventType: 4, date: Date.now()});
+            const log = new Log({trainer: req.body.trainer, client: req.body.client, eventType: 4, date: Date.now()});
             await log.save();
             res.json({message: 'Visit registered!'});
         } catch (e) {

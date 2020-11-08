@@ -1,14 +1,12 @@
 import React from 'react';
-import { Col, Row, Card, Button, InputGroup, FormControl, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Col, Row, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+// import { Link } from 'react-router-dom';
 
-export const ClientCard = ({ client, program, doEditProgram,
-    addProgram, changeNewProgramTextHandler, newProgramText,
-    startEditHandler, endEditHandler, startNotificationHandler,
+export const MyClientCard = ({ client, program,
+    startNotificationHandler,
     notifications, newNotificationText, addNotification, doAddNotification,
-    changeNewNotificationTextHandler, endNotificationHandler, lastVisit,
-    sendVisitNotification, trainer, addTrainer, isMyClient, templates, selectTemplateHandler,
-insertTemplate }) => {
+    changeNewNotificationTextHandler, endNotificationHandler, lastVisit, 
+    sendVisitNotification, registerVisitHandler, trainer }) => {
 
     const NotificationsList = () => {
         return (
@@ -16,7 +14,7 @@ insertTemplate }) => {
                 return (
                     <div key={notification._id}>
                         <p><strong>{notification.comment}</strong></p>
-                        <p className="ml-3">{new Date(notification.date).toLocaleString()}</p>
+                <p className="ml-3">{notification.trainer.fullname} - {new Date(notification.date).toLocaleString()}</p>
                     </div>
                 )
             })
@@ -28,7 +26,6 @@ insertTemplate }) => {
         <>
             <Row className="mt-3">
                 <Col xs={2} md={{ span: 4 }}>
-                    <h1><Link to={`/users/`} >&lt;</Link></h1>
                 </Col>
                 <Col xs={10} md={{ span: 4, offset: 4 }}>
                     <h1>{client.fullname}</h1>
@@ -41,31 +38,33 @@ insertTemplate }) => {
             </Row>
             <Row className="mt-3">
                 <Col>
-                    <h2>Last visit</h2>
+                <h2>Last visit</h2>
                 </Col>
                 <Col>
                     {!lastVisit && (
                         <h2>No visits</h2>
                     )}
+                    {(lastVisit) && (Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000))) === 0) &&(
+                        // <h2> - {new Date(lastVisit).toLocaleDateString()}</h2>
+                    <h2> - today</h2>
+                    )}
+                    {(lastVisit) && (Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000))) !== 0) &&(
+                        // <h2> - {new Date(lastVisit).toLocaleDateString()}</h2>
+                    <h2> - {Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000)))} days ago</h2>
+                    )}
+                </Col>
+                <Col>
+                <Button block={true} onClick={registerVisitHandler} variant="primary">I was today!</Button>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    {((trainer) && (isMyClient)) && (
-                        <h2>Trainer - {trainer.fullname}</h2>
-                    )}
-                    {((trainer) && (!isMyClient)) && (
-                        <>
-                            <h2>Trainer - {trainer.fullname}</h2>
-                            <Button block={true} onClick={addTrainer} variant="success">Become trainer</Button>
-                        </>
-                    )}
-                    {!trainer && (
-                        <>
-                            <h2>No trainer found</h2>
-                            <Button block={true} onClick={addTrainer} variant="success">Become trainer</Button>
-                        </>
-                    )}
+                {trainer && (
+                    <h2>My trainer - {trainer.fullname}</h2>
+                )}
+                {!trainer && (
+                    <h2>I have no trainer!</h2>
+                )}
                 </Col>
             </Row>
             <Row>
@@ -73,49 +72,18 @@ insertTemplate }) => {
                     <h2>Exercise Program</h2>
                 </Col>
                 <Col>
-                    {
-                        ((!doEditProgram) && (isMyClient)) && (
-                            <Button block={true} onClick={startEditHandler} variant="success">Edit</Button>
-                        )
-                    }
-                    {doEditProgram && (
-                        <>
-                            <Form.Control as="select" onChange={selectTemplateHandler}>
-                                
-                                {
-                                    templates.map((template, index) => {
-                                        return (
-                                        <option value={index} key={template._id}>{template.title}</option>
-                                        )
-                                    })
-                                }
-                                
-                            </Form.Control>
-                            <Button className="mt-2 mb-2" onClick={insertTemplate} variant="success">Insert template</Button>
 
-                        </>
-                    )}
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <Card bg="light" >
                         <Card.Body>
-                            {(program && !doEditProgram) && (
+                            {(program) && (
                                 <p style={{ whiteSpace: "pre-line" }}>{program}</p>
                             )}
-                            {(!program && !doEditProgram) && (
+                            {(!program) && (
                                 <p className="text-center">no program found</p>
-                            )}
-                            {doEditProgram && (
-                                <>
-                                    <InputGroup>
-
-                                        <FormControl rows="10" value={newProgramText} onChange={changeNewProgramTextHandler} as="textarea" aria-label="With textarea" />
-                                    </InputGroup>
-                                    <Button className="mt-3 mr-3" onClick={addProgram} variant="success">Save</Button>
-                                    <Button className="mt-3" onClick={endEditHandler} variant="secondary">Cancel</Button>
-                                </>
                             )}
                         </Card.Body>
                     </Card>
@@ -149,7 +117,7 @@ insertTemplate }) => {
                                 <h3 className="text-center">No notifications yet...</h3>
                             )}
 
-                            {(notifications.length > 0) && (
+                            {(notifications.length>0) && (
                                 <NotificationsList />
                             )}
 

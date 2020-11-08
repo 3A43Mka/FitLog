@@ -29,6 +29,19 @@ const router = Router();
         }
     });
 
+    router.get('/alltrainers', auth, async (req, res) => {
+        try {
+            let user = await User.findOne({_id: req.user.userId});
+            if (user.role !== 'admin' && user.role !=='trainer') {
+                return res.status(401).json({ message: `Unauthorized for this action: role ${user.role}` });
+            }
+            let users = await User.find({ $or: [{ role: "admin" }, { role: "trainer" }]}).select("-password");
+            res.json(users);
+        } catch (e) {
+            res.status(500).json({ message: 'Something went wrong, try again' });
+        }
+    });
+
     router.post('/bySearch', auth, async (req, res) => {
         try {
             let user = await User.findOne({_id: req.user.userId});

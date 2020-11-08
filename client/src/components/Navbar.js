@@ -19,10 +19,22 @@ export const NavbarComponent = () => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
-                    <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
+                    {userRole === "client" && (
+                        <>
+                        <Nav.Link as={NavLink} to="/myprofile">Profile</Nav.Link>
+                        </>
+                    )
+
+                    }
+                    {((userRole === "trainer") || (userRole === "admin")) && (
+                        <>
+                            <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
+                            <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
+                            <Nav.Link as={NavLink} to="/templates">Templates</Nav.Link>
+                        </>
+                    )}
                     <Nav.Link as={NavLink} onClick={logoutHandler} to="/">Logout</Nav.Link>
-                    {userRole == 'trainer' && (
+                    {userRole === 'trainer' && (
                         <p>congratz you are trainer</p>
                     )}
                 </Nav>
