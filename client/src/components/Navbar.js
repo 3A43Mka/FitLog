@@ -22,6 +22,7 @@ export const NavbarComponent = () => {
                     {userRole === "client" && (
                         <>
                         <Nav.Link as={NavLink} to="/myprofile">Profile</Nav.Link>
+                        <Nav.Link as={NavLink} to="/myexercises">My Exercises</Nav.Link>
                         </>
                     )
 

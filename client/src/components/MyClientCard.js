@@ -14,7 +14,7 @@ export const MyClientCard = ({ client, program,
                 return (
                     <div key={notification._id}>
                         <p><strong>{notification.comment}</strong></p>
-                <p className="ml-3">{notification.trainer.fullname} - {new Date(notification.date).toLocaleString()}</p>
+                        <p className="ml-3">{new Date(notification.date).toLocaleString()} - {notification.eventType === 3? (notification.trainer.fullname): (notification.client.fullname)}</p>
                     </div>
                 )
             })

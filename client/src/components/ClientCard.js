@@ -11,12 +11,13 @@ export const ClientCard = ({ client, program, doEditProgram,
 insertTemplate }) => {
 
     const NotificationsList = () => {
+        console.log(notifications);
         return (
             notifications.map((notification, index) => {
                 return (
                     <div key={notification._id}>
                         <p><strong>{notification.comment}</strong></p>
-                        <p className="ml-3">{new Date(notification.date).toLocaleString()}</p>
+                <p className="ml-3">{new Date(notification.date).toLocaleString()} - {notification.eventType === 3? (notification.trainer.fullname): (notification.client.fullname)}</p>
                     </div>
                 )
             })
@@ -44,8 +45,16 @@ insertTemplate }) => {
                     <h2>Last visit</h2>
                 </Col>
                 <Col>
-                    {!lastVisit && (
+                {!lastVisit && (
                         <h2>No visits</h2>
+                    )}
+                    {(lastVisit) && (Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000))) === 0) &&(
+                        // <h2> - {new Date(lastVisit).toLocaleDateString()}</h2>
+                    <h2> - today</h2>
+                    )}
+                    {(lastVisit) && (Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000))) !== 0) &&(
+                        // <h2> - {new Date(lastVisit).toLocaleDateString()}</h2>
+                    <h2> - {Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000)))} days ago</h2>
                     )}
                 </Col>
             </Row>

@@ -6,7 +6,7 @@ import { MyClientDetailPage } from './pages/MyClientDetailPage';
 import { UsersPage } from './pages/UsersPage';
 import { ProfilePage } from './pages/ProfilePage';
 import {TemplatesPage} from './pages/TemplatesPage';
-
+import {MyExercisesPage} from './pages/MyExercisesPage'
 export const useRoutes = (isAuthenticated, userRole) => {
     if (isAuthenticated && ((userRole === "trainer") || (userRole === "admin"))) {
         return (
@@ -31,6 +31,9 @@ export const useRoutes = (isAuthenticated, userRole) => {
             <Switch>
                 <Route path="/myprofile" exact>
                     <MyClientDetailPage />
+                </Route>
+                <Route path="/myexercises" exact>
+                    <MyExercisesPage />
                 </Route>
                 <Redirect to="/myprofile"/>
             </Switch>

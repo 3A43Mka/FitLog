@@ -11,6 +11,7 @@ app.use('/api/users', require('./routes/user.routes'));
 app.use('/api/logs', require('./routes/log.routes'));
 app.use('/api/links', require('./routes/link.routes'));
 app.use('/api/templates', require('./routes/template.routes'));
+app.use('/api/exercises', require('./routes/exercise.routes'));
 
 const PORT = config.get('port') || 5000;
 
