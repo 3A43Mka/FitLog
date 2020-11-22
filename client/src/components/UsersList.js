@@ -19,16 +19,16 @@ const [userId, setUserId] = useState(null);
 
 
   if (!users.length) {
-    return <h2 className="text-center mt-3">No users found</h2>
+    return <h2 className="text-center mt-3">Користувачів не знайдено</h2>
   }
     return (
 <Table className="mt-3" striped bordered hover>
   <thead>
     <tr>
       <th>#</th>
-      <th>Fullname</th>
-      <th>Email</th>
-      <th>Role</th>
+      <th>Ім'я</th>
+      <th>Електроона пошта</th>
+      <th>Роль</th>
     </tr>
   </thead>
   <tbody>

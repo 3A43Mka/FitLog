@@ -63,7 +63,7 @@ export const MyExercisesPage = () => {
         <>
         <Row className="mt-3">
             <Col>
-            <h1>My Exercise Templates</h1>
+            <h1>Щоденник Досягнень</h1>
             </Col>
         </Row>
             {!loading &&  <CreateExercise 

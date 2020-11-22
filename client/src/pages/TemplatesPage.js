@@ -58,7 +58,7 @@ export const TemplatesPage = () => {
         <>
         <Row className="mt-3">
             <Col>
-            <h1>My Exercise Templates</h1>
+            <h1>Мої Шаблони Занять</h1>
             </Col>
         </Row>
             {!loading &&  <CreateTemplate 

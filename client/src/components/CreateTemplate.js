@@ -13,7 +13,7 @@ export const CreateTemplate = ({ addTemplate, newTemplateText, changeNewTeplateH
             <div>
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Title"
+                  placeholder="Назва шаблону"
                   id="title"
                   name="title"
                   type="text"
@@ -25,7 +25,7 @@ export const CreateTemplate = ({ addTemplate, newTemplateText, changeNewTeplateH
               <InputGroup className="mb-3">
                 <FormControl
                   as="textarea"
-                  placeholder="Text"
+                  placeholder="Текст шаблону ..."
                   id="text"
                   name="text"
                   type="text"
@@ -35,7 +35,7 @@ export const CreateTemplate = ({ addTemplate, newTemplateText, changeNewTeplateH
                 />
               </InputGroup>
             </div>
-            <Button className="mr-3" onClick={addTemplate} variant="success">Add</Button>
+            <Button className="mr-3" onClick={addTemplate} variant="success">Додати</Button>
           </Card.Body>
         </Card>
       </Col>

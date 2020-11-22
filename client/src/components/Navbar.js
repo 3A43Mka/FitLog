@@ -21,23 +21,20 @@ export const NavbarComponent = () => {
                 <Nav className="mr-auto">
                     {userRole === "client" && (
                         <>
-                        <Nav.Link as={NavLink} to="/myprofile">Profile</Nav.Link>
-                        <Nav.Link as={NavLink} to="/myexercises">My Exercises</Nav.Link>
+                        <Nav.Link as={NavLink} to="/myprofile">Профіль</Nav.Link>
+                        <Nav.Link as={NavLink} to="/myexercises">Мої досягнення</Nav.Link>
                         </>
                     )
 
                     }
                     {((userRole === "trainer") || (userRole === "admin")) && (
                         <>
-                            <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
-                            <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
-                            <Nav.Link as={NavLink} to="/templates">Templates</Nav.Link>
+                            <Nav.Link as={NavLink} to="/profile">Профіль</Nav.Link>
+                            <Nav.Link as={NavLink} to="/users">Користувачі</Nav.Link>
+                            <Nav.Link as={NavLink} to="/templates">Шаблони</Nav.Link>
                         </>
                     )}
-                    <Nav.Link as={NavLink} onClick={logoutHandler} to="/">Logout</Nav.Link>
-                    {userRole === 'trainer' && (
-                        <p>congratz you are trainer</p>
-                    )}
+                    <Nav.Link as={NavLink} onClick={logoutHandler} to="/">Вийти</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

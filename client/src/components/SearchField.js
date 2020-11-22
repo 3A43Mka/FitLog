@@ -7,7 +7,7 @@ export const SearchField = ({changeHandler, search, searchHandler, enterHandler}
             <Col className="mt-3" md={{span: 10}}>
         <InputGroup>
         <FormControl
-            placeholder="Search users..."
+            placeholder="Шукати користувачів ..."
             id="search"
             name="search"
             type="text"
@@ -18,7 +18,7 @@ export const SearchField = ({changeHandler, search, searchHandler, enterHandler}
     </InputGroup> 
     </Col>
     <Col className="mt-3" md={{span: 2}}>
-    <Button variant="primary" block={true} onClick={searchHandler}>Search</Button>
+    <Button variant="primary" block={true} onClick={searchHandler}>Пошук</Button>
 
     </Col>
     </Row>

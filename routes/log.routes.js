@@ -59,7 +59,7 @@ const router = Router();
                 const log = new Log({trainer: link.trainer, client: req.body.client, eventType: 5, comment: req.body.comment, date: Date.now()});
                 await log.save();    
             } else {
-                const log = new Log({trainer: user._id, client: req.body.client, eventType: 3, comment: req.body.comment, date: Date.now()});
+                const log = new Log({trainer: req.user.userId, client: req.body.client, eventType: 3, comment: req.body.comment, date: Date.now()});
                 await log.save();    
             }
             res.json({message: 'Notification sent!'});

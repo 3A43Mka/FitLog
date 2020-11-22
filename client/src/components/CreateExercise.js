@@ -13,7 +13,7 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
             <div>
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Exercise title"
+                  placeholder="Назва вправи"
                   id="title"
                   name="title"
                   type="text"
@@ -24,7 +24,7 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
 
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Quantity"
+                  placeholder="Кількість повторень"
                   id="quantity"
                   name="quantity"
                   type="number"
@@ -35,7 +35,7 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
 
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Weights (in kg)"
+                  placeholder="Вага (в кг)"
                   id="weights"
                   name="weights"
                   type="number"
@@ -44,7 +44,7 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
                 />
               </InputGroup>
             </div>
-            <Button className="mr-3" onClick={addExercise} variant="success">Add</Button>
+            <Button className="mr-3" onClick={addExercise} variant="success">Додати</Button>
           </Card.Body>
         </Card>
       </Col>

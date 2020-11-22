@@ -15,8 +15,15 @@ export const MyClientDetailPage = () => {
     const [doAddNotification, setDoAddNotification] = useState(false);
     const [lastVisit, setLastVisit] = useState(null);
     const [trainer, setTrainer] = useState(null);
+    const [exercises, setExercises] = useState([]);
     const clientId = useParams().id;
 
+    const data = 
+        exercises.map(e => {
+            return(
+                {name: e.title, score: e.quantity*e.weights}
+            )
+        });
     const getClient = useCallback(async () => {
         try {
             const fetched = await request(`/api/users/${userId}`, 'GET', null, {
@@ -105,6 +112,16 @@ export const MyClientDetailPage = () => {
         }
     }, [token, request, userId, newNotificationText, getNotifications]);
 
+    const getExercises = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/exercises/getexercises`, 'POST', {client: userId }, {
+                Authorization: `Bearer ${token}`
+            });
+            setExercises(fetched);
+        } catch (e) {
+
+        }
+    }, [token, request, setExercises, userId]);
 
     const startNotificationHandler = () => {
         setDoAddNotification(true);
@@ -124,7 +141,8 @@ export const MyClientDetailPage = () => {
         getProgram();
         getNotifications();
         getLastVisit();
-    }, [getClient, getProgram, getNotifications, getLastVisit, getTrainer]);
+        getExercises();
+    }, [getClient, getProgram, getNotifications, getLastVisit, getTrainer, getExercises]);
 
     if (loading) {
         return <Loader />;
@@ -145,6 +163,8 @@ export const MyClientDetailPage = () => {
             lastVisit={lastVisit}
             registerVisitHandler={registerVisitHandler}
             trainer={trainer}
+
+            data={data}
             />}
         </>
     )

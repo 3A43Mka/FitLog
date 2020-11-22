@@ -13,11 +13,11 @@ export const ExercisesList = ({ exercises
               <Card.Body>
                 <Card.Title>{exercise.title}</Card.Title>
                 <Card.Text>
-                  <p><strong>Quantity - </strong> {exercise.quantity}</p>
+                  <p><strong>Повторень  - </strong> {exercise.quantity}</p>
                   {(exercise.weights) && (
-                    <p><strong>Weights - </strong> {exercise.weights}</p>
+                    <p><strong>Ваги  - </strong> {exercise.weights}</p>
                   )}
-                  <p><strong>Date - </strong>{new Date(exercise.date).toLocaleString()}</p>
+                  <p><strong>Дата - </strong>{new Date(exercise.date).toLocaleString()}</p>
                 </Card.Text>
               </Card.Body>
             </Card>

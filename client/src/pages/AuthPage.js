@@ -41,11 +41,11 @@ export const AuthPage = () => {
                 <h1>FitLog</h1>
                 <Card bg="light" >
                     <Card.Body>
-                        <Card.Title>Authorization</Card.Title>
+                        <Card.Title>Авторизація</Card.Title>
                         <div>
                             <InputGroup className="mb-3">
                                 <FormControl
-                                    placeholder="Email"
+                                    placeholder="Електронна адреса"
                                     id="email"
                                     name="email"
                                     type="email"
@@ -55,7 +55,7 @@ export const AuthPage = () => {
 
                             <InputGroup className="mb-3">
                                 <FormControl
-                                    placeholder="Fullname"
+                                    placeholder="Повне Ім'я"
                                     id="fullname"
                                     name="fullname"
                                     type="text"
@@ -65,7 +65,7 @@ export const AuthPage = () => {
 
                             <InputGroup className="mb-3">
                                 <FormControl
-                                    placeholder="Password"
+                                    placeholder="Пароль"
                                     id="password"
                                     name="password"
                                     type="password"
@@ -73,8 +73,8 @@ export const AuthPage = () => {
                                 />
                             </InputGroup>
                         </div>
-                        <Button variant="primary" disabled={loading} onClick={loginHandler} style={{ marginRight: 10 }}>Sign in</Button>
-                        <Button variant="success" disabled={loading} onClick={registerHandler}>Register</Button>
+                        <Button variant="primary" disabled={loading} onClick={loginHandler} style={{ marginRight: 10 }}>Увійти</Button>
+                        <Button variant="success" disabled={loading} onClick={registerHandler}>Реєстрація</Button>
 
                     </Card.Body>
                 </Card>
