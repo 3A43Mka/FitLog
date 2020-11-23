@@ -1,16 +1,22 @@
 import React from 'react';
-import { Col, Row, Card, Button, InputGroup, FormControl, Image } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
-import {
-    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
-
+import { Col, Row, Card, Button, InputGroup, FormControl, Image, Tab, Tabs } from 'react-bootstrap';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from 'recharts';
 
 export const MyClientCard = ({ client, program,
     startNotificationHandler,
     notifications, newNotificationText, addNotification, doAddNotification,
     changeNewNotificationTextHandler, endNotificationHandler, lastVisit,
-    sendVisitNotification, registerVisitHandler, trainer, data }) => {
+    sendVisitNotification, registerVisitHandler, trainer, data, visits }) => {
+
+    const LastVisits = (visits) => {
+        return (
+            visits.visits.map((v) => {
+                return (
+                    <p key={v._id}>{new Date(v.date).toLocaleString()}</p>
+                )
+            })
+        )
+    };
 
     const NotificationsList = () => {
         return (
@@ -24,11 +30,8 @@ export const MyClientCard = ({ client, program,
             })
         )
     }
-
-console.log(data);
     return (
         <>
-        
             <Row className="mt-3">
                 <Col xs={2} md={{ span: 4 }}>
                     <Image src="https://strikerealty.com/wp-content/uploads/2019/06/profile-placeholder.png" fluid />
@@ -39,22 +42,29 @@ console.log(data);
             </Row>
 
             <Row className="mt-3 justify-content-md-center" className="justify-content-md-center">
-                <Col xs={{span: 6, offset: 0}}>
-                    <BarChart
-                        width={500}
-                        height={300}
-                        data={data}
-                        margin={{
-                            top: 5, right: 30, left: 20, bottom: 5,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="score" fill="#8884d8" />
-                    </BarChart>
+                <Col xs={{ span: 9, offset: 0 }}>
+                    <Tabs defaultActiveKey="progress">
+                        <Tab eventKey="progress" title="Мій прогрес">
+
+                            <BarChart
+                                width={800}
+                                height={300}
+                                data={data}
+                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="score" fill="#8884d8" />
+                            </BarChart>
+                        </Tab>
+                        <Tab eventKey="visits" title="Відвідування">
+                            <h2>Останні 10 візитів:</h2>
+                            <LastVisits visits={visits} />
+                        </Tab>
+
+                    </Tabs>
                 </Col>
             </Row>
             <Row className="mt-3">
@@ -73,7 +83,9 @@ console.log(data);
                     )}
                 </Col>
                 <Col>
-                    <Button block={true} onClick={registerVisitHandler} variant="primary">Відмітитися</Button>
+                    {(Math.round(Math.abs((new Date(lastVisit) - Date.now()) / (24 * 60 * 60 * 1000))) != 0) &&
+                        <Button block={true} onClick={registerVisitHandler} variant="primary">Відмітитися</Button>
+                    }
                 </Col>
             </Row>
             <Row>
@@ -144,11 +156,6 @@ console.log(data);
                     </Card>
                 </Col>
             </Row>
-            {/* <h2>Profile</h2>
-            <p>Email: {client.email}</p>
-            <p>Fullname: {client.fullname}</p>
-            <p>Role: <strong>{client.role}</strong></p>
-            <p>Registered: <strong>{new Date(client.registered).toLocaleDateString()}</strong></p> */}
         </>
     )
 }

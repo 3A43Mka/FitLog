@@ -49,10 +49,6 @@ const router = Router();
             if (!req.body.client) {
                 return res.status(400).json({ message: 'Invalid data' });
             }
-            // let user = await User.findOne({_id: req.user.userId});
-            // if (user.role !== 'admin' && user.role !=='trainer') {
-            //     return res.status(401).json({ message: `Unauthorized for this action: role ${user.role}` });
-            // }
             console.log(req.body.client);
             if (req.body.clientToTrainer){
                 const link = await Link.findOne({client: req.body.client}).sort({ date: -1 }).limit(1);
@@ -111,6 +107,21 @@ const router = Router();
                 return res.status(400).json({ message: 'No visits' });
             }
             res.json(lastVisit);
+        } catch (e) {
+            res.status(500).json({ message: e.message });
+        }
+    });
+
+    router.post('/getvisits', auth, async (req, res) => {
+        try {
+            if (!req.body.client) {
+                return res.status(400).json({ message: 'Invalid data' });
+            }
+            const visits = await Log.find({client: req.body.client, eventType: 4}).sort({ date: -1 }).limit(10);
+            if (visits.length == 0) {
+                return res.status(400).json({ message: 'No visits' });
+            }
+            res.json(visits);
         } catch (e) {
             res.status(500).json({ message: e.message });
         }

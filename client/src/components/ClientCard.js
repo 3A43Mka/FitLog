@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Row, Card, Button, InputGroup, FormControl, Form, Image } from 'react-bootstrap';
+import { Col, Row, Card, Button, InputGroup, FormControl, Form, Image, Tab, Tabs } from 'react-bootstrap';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from 'recharts';
 import { Link } from 'react-router-dom';
 
 export const ClientCard = ({ client, program, doEditProgram,
@@ -8,7 +9,17 @@ export const ClientCard = ({ client, program, doEditProgram,
     notifications, newNotificationText, addNotification, doAddNotification,
     changeNewNotificationTextHandler, endNotificationHandler, lastVisit,
     sendVisitNotification, trainer, addTrainer, isMyClient, templates, selectTemplateHandler,
-insertTemplate }) => {
+insertTemplate, visits, data }) => {
+
+    const LastVisits = (visits) => {
+        return (
+            visits.visits.map((v) => {
+                return (
+                    <p key={v._id}>{new Date(v.date).toLocaleString()}</p>
+                )
+            })
+        )
+    };
 
     const NotificationsList = () => {
         console.log(notifications);
@@ -37,9 +48,30 @@ insertTemplate }) => {
                     <h1>{client.fullname}</h1>
                 </Col>
             </Row>
-            <Row className="mt-3">
-                <Col>
-                    <h2 className="text-center">Якісь графіки тут...</h2>
+            <Row className="mt-3 justify-content-md-center" className="justify-content-md-center">
+            <Col xs={{ span: 9, offset: 0 }}>
+                    <Tabs defaultActiveKey="progress">
+                        <Tab eventKey="progress" title="Мій прогрес">
+
+                            <BarChart
+                                width={800}
+                                height={300}
+                                data={data}
+                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="score" fill="#8884d8" />
+                            </BarChart>
+                        </Tab>
+                        <Tab eventKey="visits" title="Відвідування">
+                            <h2>Останні 10 візитів:</h2>
+                            <LastVisits visits={visits} />
+                        </Tab>
+
+                    </Tabs>
                 </Col>
             </Row>
             <Row className="mt-3">

@@ -20,8 +20,17 @@ export const ClientDetailPage = () => {
     const [lastVisit, setLastVisit] = useState(null);
     const [templates, setTemplates] = useState([]);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
+    const [visits, setVisits] = useState([]);
+    const [exercises, setExercises] = useState([]);
     const clientId = useParams().id;
 
+
+    const data = 
+        exercises.map(e => {
+            return(
+                {name: e.title, score: e.quantity*e.weights}
+            )
+        });
     const getClient = useCallback(async () => {
         try {
             const fetched = await request(`/api/users/${clientId}`, 'GET', null, {
@@ -144,6 +153,29 @@ export const ClientDetailPage = () => {
         }
     }, [token, request, clientId, getClient, getProgram, newNotificationText, getNotifications]);
 
+    const getExercises = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/exercises/getexercises`, 'POST', {client: clientId }, {
+                Authorization: `Bearer ${token}`
+            });
+            setExercises(fetched);
+        } catch (e) {
+
+        }
+    }, [token, request, setExercises, clientId]);
+
+    const getVisits = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/logs/getvisits`, 'POST', {client: clientId }, {
+                Authorization: `Bearer ${token}`
+            });
+            console.log(fetched);
+            setVisits(fetched);
+        } catch (e) {
+
+        }
+    }, [token, request, setVisits, clientId]);
+
     const changeNewProgramTextHandler = event => {
         setNewProgramText(event.target.value);
     }
@@ -184,7 +216,9 @@ export const ClientDetailPage = () => {
         getLastVisit();
         getTrainer();
         getTemplates();
-    }, [getClient, getProgram, getNotifications, getLastVisit, getTrainer, getTemplates]);
+        getExercises();
+        getVisits();
+    }, [getClient, getProgram, getNotifications, getLastVisit, getTrainer, getTemplates, getExercises, getVisits]);
 
     if (loading) {
         return <Loader />;
@@ -217,6 +251,9 @@ export const ClientDetailPage = () => {
             templates={templates}
             selectTemplateHandler={selectTemplateHandler}
             insertTemplate={insertTemplate}
+
+            visits={visits}
+            data={data}
             />}
         </>
     )
