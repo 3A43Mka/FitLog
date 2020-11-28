@@ -15,16 +15,14 @@ export const UserCard = ({ user }) => {
                         <p>Електронна адреса: {user.email}</p>
     </Card.Text>
                 </Card.Body>
+                {user.role == 'trainer' && (
                 <Card.Footer className="text-muted"><p><strong>Тренер</strong></p></Card.Footer>
+                )}
+                {user.role == 'admin' && (
+                <Card.Footer className="text-muted"><p><strong>Адміністратор</strong></p></Card.Footer>
+                )}
             </Card>
             </Col>
         </Row>
     )
 }
-
-
-//             <h2>Profile</h2>
-//             <p>Email: {user.email}</p>
-//             <p>Fullname: {user.fullname}</p>
-//             <p>Role: <strong>{user.role}</strong></p>
-//             <p>Registered: <strong>{new Date(user.registered).toLocaleDateString()}</strong></p>

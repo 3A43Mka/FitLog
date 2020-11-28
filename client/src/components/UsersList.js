@@ -33,6 +33,7 @@ const [userId, setUserId] = useState(null);
   </thead>
   <tbody>
       {users.map((user, index) => {
+        if (user.role == 'client'){
           return (
             <tr onClick={() => clickHandle(user._id)} key={user._id}>
               <td>{index + 1}</td>
@@ -41,6 +42,17 @@ const [userId, setUserId] = useState(null);
           <td>{user.role}</td>
             </tr>
           )
+        } else {
+          return (
+            <tr key={user._id}>
+              <td>{index + 1}</td>
+          <td>{user.fullname}</td>
+          <td>{user.email}</td>
+          <td>{user.role}</td>
+            </tr>
+          )
+        }
+          
         })}
   </tbody>
 </Table>

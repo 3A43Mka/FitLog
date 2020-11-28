@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
 
 export const ClientDetailPage = () => {
-    const { token, userId } = useContext(AuthContext);
+    const { token, userId, userRole } = useContext(AuthContext);
     const { request, loading } = useHttp();
     const [client, setClient] = useState(null);
     const [trainer, setTrainer] = useState(null);
@@ -252,6 +252,7 @@ export const ClientDetailPage = () => {
             selectTemplateHandler={selectTemplateHandler}
             insertTemplate={insertTemplate}
 
+            userRole={userRole}
             visits={visits}
             data={data}
             />}

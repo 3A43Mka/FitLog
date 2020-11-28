@@ -9,6 +9,11 @@ export const MyClientCard = ({ client, program,
     sendVisitNotification, registerVisitHandler, trainer, data, visits }) => {
 
     const LastVisits = (visits) => {
+        if (visits.length == 0){
+            return (
+                <p>Немає даних</p>
+            )
+        }
         return (
             visits.visits.map((v) => {
                 return (
@@ -45,19 +50,24 @@ export const MyClientCard = ({ client, program,
                 <Col xs={{ span: 9, offset: 0 }}>
                     <Tabs defaultActiveKey="progress">
                         <Tab eventKey="progress" title="Мій прогрес">
-
-                            <BarChart
-                                width={800}
-                                height={300}
-                                data={data}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="score" fill="#8884d8" />
-                            </BarChart>
+                            {data.length > 0 && (
+                                                            <BarChart
+                                                            width={800}
+                                                            height={300}
+                                                            data={data}
+                                                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                                            <CartesianGrid strokeDasharray="3 3" />
+                                                            <XAxis dataKey="name" />
+                                                            <YAxis />
+                                                            <Tooltip />
+                                                            <Legend />
+                                                            <Bar dataKey="score" fill="#8884d8" />
+                                                        </BarChart>
+                            
+                            )}
+                            {data.length == 0 && (
+                                <p>Немає даних</p>
+                            )}
                         </Tab>
                         <Tab eventKey="visits" title="Відвідування">
                             <h2>Останні 10 візитів:</h2>

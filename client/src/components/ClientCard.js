@@ -9,7 +9,7 @@ export const ClientCard = ({ client, program, doEditProgram,
     notifications, newNotificationText, addNotification, doAddNotification,
     changeNewNotificationTextHandler, endNotificationHandler, lastVisit,
     sendVisitNotification, trainer, addTrainer, isMyClient, templates, selectTemplateHandler,
-insertTemplate, visits, data }) => {
+insertTemplate, visits, data, userRole }) => {
 
     const LastVisits = (visits) => {
         return (
@@ -51,7 +51,7 @@ insertTemplate, visits, data }) => {
             <Row className="mt-3 justify-content-md-center" className="justify-content-md-center">
             <Col xs={{ span: 9, offset: 0 }}>
                     <Tabs defaultActiveKey="progress">
-                        <Tab eventKey="progress" title="Мій прогрес">
+                        <Tab eventKey="progress" title="Прогрес">
 
                             <BarChart
                                 width={800}
@@ -97,13 +97,13 @@ insertTemplate, visits, data }) => {
                     {((trainer) && (isMyClient)) && (
                         <h2>Тренер - {trainer.fullname}</h2>
                     )}
-                    {((trainer) && (!isMyClient)) && (
+                    {((trainer) && (userRole == 'trainer') && (!isMyClient)) && (
                         <>
                             <h2>Тренер - {trainer.fullname}</h2>
                             <Button block={true} onClick={addTrainer} variant="success">Стати тренером</Button>
                         </>
                     )}
-                    {!trainer && (
+                    {!trainer &&  (userRole == 'trainer') && (
                         <>
                             <h2>Немає тренера</h2>
                             <Button block={true} onClick={addTrainer} variant="success">Стати тренером</Button>

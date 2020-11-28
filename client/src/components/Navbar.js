@@ -31,7 +31,9 @@ export const NavbarComponent = () => {
                         <>
                             <Nav.Link as={NavLink} to="/profile">Профіль</Nav.Link>
                             <Nav.Link as={NavLink} to="/users">Користувачі</Nav.Link>
+                            { userRole=='trainer' && (
                             <Nav.Link as={NavLink} to="/templates">Шаблони</Nav.Link>
+                            )}
                         </>
                     )}
                     <Nav.Link as={NavLink} onClick={logoutHandler} to="/">Вийти</Nav.Link>
