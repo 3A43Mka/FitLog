@@ -88,6 +88,17 @@ export const MyClientDetailPage = () => {
         }
     }, [token, request, userId]);
 
+    const getVisits = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/logs/getvisits`, 'POST', {client: userId }, {
+                Authorization: `Bearer ${token}`
+            });
+            console.log(fetched);
+            setVisits(fetched);
+        } catch (e) {
+
+        }
+    }, [token, request, setVisits, userId]);
     
     const registerVisitHandler = useCallback(async () => {
         try {
@@ -95,10 +106,11 @@ export const MyClientDetailPage = () => {
                 Authorization: `Bearer ${token}`
             });
             getLastVisit();
+            getVisits();
         } catch (e) {
             
         }
-    }, [token, request, userId, trainer, getLastVisit]);
+    }, [token, request, userId, trainer, getLastVisit, getVisits]);
 
     const addNotification = useCallback(async () => {
         try {
@@ -123,18 +135,6 @@ export const MyClientDetailPage = () => {
 
         }
     }, [token, request, setExercises, userId]);
-
-    const getVisits = useCallback(async () => {
-        try {
-            const fetched = await request(`/api/logs/getvisits`, 'POST', {client: userId }, {
-                Authorization: `Bearer ${token}`
-            });
-            console.log(fetched);
-            setVisits(fetched);
-        } catch (e) {
-
-        }
-    }, [token, request, setVisits, userId]);
 
     const startNotificationHandler = () => {
         setDoAddNotification(true);

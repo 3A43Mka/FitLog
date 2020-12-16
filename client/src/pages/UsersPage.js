@@ -18,7 +18,7 @@ export const UsersPage = () => {
             const fetched = await request('/api/users/all', 'GET', null, {
                 Authorization: `Bearer ${token}`
             });
-            setUsers(fetched);
+            setUsers(fetched.filter((u) => u.role == 'client'));
         } catch (e) {
         }
     }, [request, token]);
@@ -49,7 +49,7 @@ export const UsersPage = () => {
             const fetched = await request('/api/users/bySearch', 'POST', {search}, {
                 Authorization: `Bearer ${token}`
             });
-            setUsers(fetched);
+            setUsers(fetched.filter((u) => u.role == 'client'));
         } catch (e) {
         }
     }, [request, token, search]);
