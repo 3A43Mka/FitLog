@@ -17,6 +17,7 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
                   id="title"
                   name="title"
                   type="text"
+                  autoComplete="off"
                   value={newTitle}
                   onChange={changeNewTitleHandler}
                 />
@@ -28,6 +29,8 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
                   id="quantity"
                   name="quantity"
                   type="number"
+                  min="0"
+                  autoComplete="off"
                   value={newQuantity}
                   onChange={changeNewQuantityHandler}
                 />
@@ -39,6 +42,7 @@ export const CreateExercise = ({ addExercise, newTitle, changeNewQuantityHandler
                   id="weights"
                   name="weights"
                   type="number"
+                  min="0"
                   value={newWeights}
                   onChange={changeNewWeightsHandler}
                 />

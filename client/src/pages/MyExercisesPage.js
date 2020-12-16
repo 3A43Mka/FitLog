@@ -28,7 +28,7 @@ export const MyExercisesPage = () => {
 
     const addExercise = useCallback(async () => {
         try {
-            const fetched = await request(`/api/exercises/addexercise`, 'POST', {client: userId, title: newTitle, quantity: newQuantity, weights: newWeights}, {
+            const fetched = await request(`/api/exercises/addexercise`, 'POST', {client: userId, title: newTitle, quantity: Math.abs(newQuantity), weights: Math.abs(newWeights)}, {
                 Authorization: `Bearer ${token}`
             });
             getExercises()

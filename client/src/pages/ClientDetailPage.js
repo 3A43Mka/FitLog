@@ -140,6 +140,9 @@ export const ClientDetailPage = () => {
 
     const addNotification = useCallback(async () => {
         try {
+            if (!newNotificationText){
+                return;
+            }
             const fetched = await request(`/api/logs/sendnotification`, 'POST', {client: clientId, comment: newNotificationText }, {
                 Authorization: `Bearer ${token}`
             });

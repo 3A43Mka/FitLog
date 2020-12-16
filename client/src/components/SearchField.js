@@ -11,6 +11,7 @@ export const SearchField = ({changeHandler, search, searchHandler, enterHandler}
             id="search"
             name="search"
             type="text"
+            autoComplete="off"
             value={search}
             onChange={changeHandler}
             onKeyPress={enterHandler}

@@ -17,6 +17,7 @@ export const CreateTemplate = ({ addTemplate, newTemplateText, changeNewTeplateH
                   id="title"
                   name="title"
                   type="text"
+                  autoComplete="off"
                   value={newTemplateTitle}
                   onChange={changeNewTitleHandler}
                 />
@@ -30,6 +31,7 @@ export const CreateTemplate = ({ addTemplate, newTemplateText, changeNewTeplateH
                   name="text"
                   type="text"
                   rows="6"
+                  autoComplete="off"
                   value={newTemplateText}
                   onChange={changeNewTeplateHandler}
                 />
